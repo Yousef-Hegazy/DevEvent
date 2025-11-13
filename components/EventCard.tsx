@@ -1,4 +1,4 @@
-import { Link } from "lucide-react";
+import Link from "next/link";
 import Image from "next/image";
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 
 const EventCard = ({ title, image, date, location, time }: Props) => {
   return (
-    <Link to="/" id="event-card">
+    <Link href="/" id="event-card">
       <Image src={image} alt={title} width={410} height={300} className="poster" />
 
       <div className="flex flex-row gap-2">

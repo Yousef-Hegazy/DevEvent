@@ -1,6 +1,6 @@
 import EventCard from "@/components/EventCard";
+import ExploreBtn from "@/components/ExploreBtn";
 import { events } from "@/lib/constants";
-import Image from "next/image";
 
 export default function Home() {
   return (
@@ -10,11 +10,7 @@ export default function Home() {
       </h1>
       <p className="text-center mt-5">Hackathons, Meetups, and Conferences. All in one place.</p>
 
-      <button type="button" id="explore-btn" className="mt-7 mx-auto">
-        <a href="#events">
-          Explore Events <Image src="/icons/arrow-down.svg" alt="arrow" width={24} height={24} />
-        </a>
-      </button>
+      <ExploreBtn />
 
       <div className="mt-20 space-y-7" id="events">
         <h3>Featured Events</h3>
