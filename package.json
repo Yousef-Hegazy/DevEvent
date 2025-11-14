@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "openapi-ts": "openapi-ts"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
@@ -19,6 +20,8 @@
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
+    "@hey-api/client-next": "0.5.1",
+    "@hey-api/openapi-ts": "0.87.5",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

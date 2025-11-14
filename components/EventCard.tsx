@@ -10,9 +10,9 @@ type Props = {
   time: string;
 };
 
-const EventCard = ({ title, image, date, location, time }: Props) => {
+const EventCard = ({ title, image, date, location, time, slug }: Props) => {
   return (
-    <Link href="/" id="event-card">
+    <Link href={`/events/${slug}`} id="event-card">
       <Image src={image} alt={title} width={410} height={300} className="poster" />
 
       <div className="flex flex-row gap-2">

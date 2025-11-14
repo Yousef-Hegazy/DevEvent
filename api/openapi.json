@@ -1,0 +1,451 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "DevEvent API",
+    "description": "REST API for managing developer events",
+    "contact": {
+      "name": "DevEvent Team",
+      "email": "support@devevent.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api",
+      "description": "Local Development Server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Events",
+      "description": "Event management APIs"
+    }
+  ],
+  "paths": {
+    "/events/{id}": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Get event by ID",
+        "description": "Retrieves an event by its unique identifier",
+        "operationId": "getEventById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Event ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Update an event",
+        "description": "Updates an existing event with the provided details",
+        "operationId": "updateEvent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Event ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Delete an event",
+        "description": "Deletes an event by its unique identifier",
+        "operationId": "deleteEvent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Event ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/events": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Get all events",
+        "description": "Retrieves a list of all events",
+        "operationId": "getAllEvents",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Create a new event",
+        "description": "Creates a new event with the provided details and uploads the event image",
+        "operationId": "createEvent",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 0,
+              "type": "string"
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maxLength": 1000,
+              "minLength": 0,
+              "type": "string"
+            }
+          },
+          {
+            "name": "overview",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maxLength": 500,
+              "minLength": 0,
+              "type": "string"
+            }
+          },
+          {
+            "name": "venue",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "time",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "pattern": "^([0-1]?[0-9]|2[0-3]):[0-5][0-9](\\s*(AM|PM))?$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ONLINE",
+                "OFFLINE",
+                "HYBRID"
+              ]
+            }
+          },
+          {
+            "name": "audience",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "agenda",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maxItems": 2147483647,
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "organizer",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maxItems": 10,
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "imageFile"
+                ],
+                "type": "object",
+                "properties": {
+                  "imageFile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/events/slug/{slug}": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Get event by slug",
+        "description": "Retrieves an event by its URL-friendly slug",
+        "operationId": "getEventBySlug",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "description": "Event slug",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "kotlin-conference-2024"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EventDto": {
+        "required": [
+          "agenda",
+          "audience",
+          "date",
+          "description",
+          "image",
+          "location",
+          "mode",
+          "organizer",
+          "overview",
+          "tags",
+          "time",
+          "title",
+          "venue"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "description": {
+            "maxLength": 1000,
+            "minLength": 0,
+            "type": "string"
+          },
+          "overview": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "venue": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "date": {
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "type": "string"
+          },
+          "time": {
+            "pattern": "^([0-1]?[0-9]|2[0-3]):[0-5][0-9](\\s*(AM|PM))?$",
+            "type": "string"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "ONLINE",
+              "OFFLINE",
+              "HYBRID"
+            ]
+          },
+          "audience": {
+            "type": "string"
+          },
+          "agenda": {
+            "maxItems": 2147483647,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "organizer": {
+            "type": "string"
+          },
+          "tags": {
+            "maxItems": 10,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "slug": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}
